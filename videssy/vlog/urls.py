@@ -1,7 +1,8 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 urlpatterns = [
-        path('', views.home, name='home'),
-        path('<int:video_id>/', views.vlog_video, name='vlog_video'),
+        path('', views.HomeView.as_view(), name='home'),
+        path('watch/<slug:slug>/', views.VideoPlayerView.as_view(), name='video_player'),
+        path('hitcount/', include(('hitcount.urls', 'hitcount'), namespace='hitcount')),
         ]

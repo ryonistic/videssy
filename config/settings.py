@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'vlog.apps.VlogConfig',
     'stream.apps.StreamConfig',
+    'hitcount',
 ]
 
 MIDDLEWARE = [
@@ -128,6 +129,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'videssy', 'static'),]
 MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Email details
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only
