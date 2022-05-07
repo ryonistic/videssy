@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{%load static%}
+{% block title %}
+Home
+{% endblock title %}
+{% block content %}
+ <div class="flex flex-wrap justify-between p-2 m-2">
+
+  <div class="max-h-full p-2 m-2 rounded border bg-gray-200">
+    <img src="{% static 'images/thumbnail.jpg'%}" class="p-2 max-w-xs" alt="">
+    <div class="p-1 m-1">
+      <h4 class="font-bold text-4xl text-gray-800">Video Title</h4>
+      <h5 class="font-bold text-xl text-gray-600">Nick Malice</h5>
+      <div class="text-gray-800 font-semibold flex flex-wrap">
+      <p class="bg-gray-100 text-gray-800 font-semibold rounded p-1 m-1">#lorem</p>
+      <p class="bg-gray-100 text-gray-800 font-semibold rounded p-1 m-1">#ipsum</p>
+      </div>
+      <p class="text-gray-600">4.3k views</p>
+      <p class="text-gray-600">69% likes</p>
+    </div>
+  </div> 
+
+
+ </div>
+
+{% endblock content %}

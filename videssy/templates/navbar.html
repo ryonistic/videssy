@@ -1,0 +1,21 @@
+{%load static%}
+  <nav class="flex justify-between p-2 bg-gray-100">
+  <div class="flex justify-start">
+    <ul class="flex justify-start p-2">
+      <li><input type="image" class="min-h-full p-2 collapsible" src="{% static 'images/list.svg'%}" alt="Menu"/></li>
+          </ul>
+          <img src="{% static 'images/media.svg'%}" class="h-14 p-2" alt="logo" >
+  </div>
+  <div class="flex justify-end">
+  <input type="text" name="search" placeholder="Search" class="rounded p-2 my-1"/>
+  <input type="image" class="max-h-14 p-2" id="submit-btn" src="{% static 'images/search.svg'%}" alt="Search"/>
+  </div>
+ </nav> 
+ <div class="hidden bg-gray-100 p-2 font-bold" id="hiddenEl">
+      <ul>
+        <li><a href="#">Home</a></li>  
+        <li><a href="#">Explore</a></li>  
+      <li><a href="#">Subscriptions</a></li>  
+      <li><a href="#">Playlists</a></li>  
+      </ul>
+ </div>

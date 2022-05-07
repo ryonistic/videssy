@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{%load static%}
+{% block title %}
+Video Player
+{% endblock title %}
+{% block content %}
+<div class="flex p-2 m-2">
+  <div>
+    <img src="{%static 'images/thumbnail.jpg'%}" style="height:720px; width:1280px;" class="p-2" alt="">
+<h2 class="p-1 m-1 font-bold text-3xl text-gray-800">Video Title</h2>
+<p class="px-1 mx-1 text-gray-600">4.3k views</p>
+<h5 class="px-1 m-1 font-bold text-l text-gray-600">Nick Malice</h5>
+  </div>
+
+<div class="bg-gray-200 m-2 rounded">
+<h3 class="font-bold col-span-2 text-3xl p-2 m-2 text-gray-700 text-center">Suggested videos</h3>  
+<div class="p-2 m-2">
+
+<div class="p-2 m-2 bg-gray-100 rounded ">
+<img src="thumbnail.jpg" class="col-span-2  max-h-36 p-2 m-2 " alt="">
+      <h4 class="font-bold text-xl text-gray-800">Video Title</h4>
+      <h5 class="font-bold text-l text-gray-600">Nick Malice</h5>
+</div>
+
+<div class="p-2 m-2 bg-gray-100 rounded ">
+<img src="thumbnail.jpg" class="col-span-2  max-h-36 p-2 m-2 " alt="">
+      <h4 class="font-bold text-xl text-gray-800">Video Title</h4>
+      <h5 class="font-bold text-l text-gray-600">Nick Malice</h5>
+</div>
+
+<div class="p-2 m-2 bg-gray-100 rounded ">
+<img src="thumbnail.jpg" class="col-span-2  max-h-36 p-2 m-2 " alt="">
+      <h4 class="font-bold text-xl text-gray-800">Video Title</h4>
+      <h5 class="font-bold text-l text-gray-600">Nick Malice</h5>
+</div>
+
+</div>
+</div>
+</div>
+{% endblock content %}

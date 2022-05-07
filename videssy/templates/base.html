@@ -2,13 +2,16 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title></title>
+    <title>Videssy - {% block title%}{% endblock title%}
+    </title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="{% static 'css/style.css'%}" rel="stylesheet">
+    <link href="{% static 'css/styles.css'%}" rel="stylesheet">
   </head>
   <body>
-    <h1 class="border-2 bg-red-600 text-white"></h1>
-  
+    {%include 'navbar.html'%}
+    {% block content%}
+    {% endblock content%}
+    <script src="{% static 'js/main.js' %}"></script>
   </body>
 </html>

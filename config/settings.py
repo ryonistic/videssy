@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Local Apps 
     'users.apps.UsersConfig',
+    'vlog.apps.VlogConfig',
+    'stream.apps.StreamConfig',
 ]
 
 MIDDLEWARE = [
