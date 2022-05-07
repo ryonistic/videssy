@@ -8,6 +8,11 @@
     <link href="{% static 'css/styles.css' %}" rel="stylesheet">
   </head>
   <body>
+    {%if messages%}
+      {%for message in messages%}
+      <p class="text-white bg-blue-400">{{ message }}</p>
+      {%endfor%}
+      {%endif%}
     <div class="grid place-items-center h-screen p-2 m-2 rounded border bg-gray-100 text-gray-800 font-bold">
   <form method="POST">
     {% csrf_token %}
@@ -17,6 +22,7 @@
    <input class="col-span-2 p-2 m-2 " type="password" name="password" placeholder="Enter Password" required/>
    </div>
  <p class="p-2 m-2 text-gray-600 font-semibold">Forgot password? Click <a class="text-blue-500 hover:text-blue-800" href="#">here</a></p>
+    <p class="p-2 m-2 text-gray-600 font-semibold">Don't have an account? <a class="text-blue-500" href="{% url 'register' %}">Register</a></p>
    <button class="p-2 m-2 font-bold bg-gray-700 text-white hover:bg-gray-900 rounded " type="submit">Log In</button>
  </form> 
     </div>
