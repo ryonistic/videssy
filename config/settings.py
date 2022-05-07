@@ -14,6 +14,7 @@ import sys
 from pathlib import Path
 from decouple import config as secret_manager
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, os.path.join(BASE_DIR, 'videssy'))
@@ -143,6 +144,8 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'videssy', 'static'),]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
 # Email details
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only
 
