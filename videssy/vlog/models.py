@@ -15,7 +15,7 @@ class Video(models.Model):
     uploader = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     hit_count_generic = GenericRelation(HitCount, object_id_field='object_pk', related_query_name='hit_count_generic_relation')
     thumbnail = models.ImageField()
-    footage = models.FileField()
+    footage = models.FileField(upload_to='videos/')
 
     def __str__(self):
         return str(self.title)
