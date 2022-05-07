@@ -4,7 +4,7 @@
     <ul class="flex justify-start p-2">
       <li><input type="image" class="min-h-full p-2 collapsible" src="{% static 'images/list.svg'%}" alt="Menu"/></li>
           </ul>
-          <img src="{% static 'images/media.svg'%}" class="h-14 p-2" alt="logo" >
+          <a href="{% url 'home' %}"><img src="{% static 'images/media.svg'%}" class="h-14 p-2" alt="logo" /></a>
   </div>
   <div class="flex justify-end">
   <input type="text" name="search" placeholder="Search" class="rounded p-2 my-1"/>
@@ -13,7 +13,7 @@
  </nav> 
  <div class="hidden bg-gray-100 p-2 font-bold" id="hiddenEl">
       <ul>
-        <li><a href="#">Home</a></li>  
+        <li><a href="{% url 'home' %}">Home</a></li>  
         <li><a href="#">Explore</a></li>  
       <li><a href="#">Subscriptions</a></li>  
       <li><a href="#">Playlists</a></li>  
