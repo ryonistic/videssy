@@ -14,7 +14,7 @@ class Video(models.Model):
     slug = models.SlugField(unique=True, max_length=200)
     uploader = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     hit_count_generic = GenericRelation(HitCount, object_id_field='object_pk', related_query_name='hit_count_generic_relation')
-    thumbnail = models.ImageField()
+    thumbnail = models.ImageField(upload_to='thumbnails/')
     footage = models.FileField(upload_to='videos/')
 
     def __str__(self):
