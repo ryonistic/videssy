@@ -30,6 +30,8 @@ class Video(models.Model):
             output_size = (700, 700)
             thumbnail.thumbnail(output_size)
             thumbnail.save(self.thumbnail.path)
+    class Meta:
+        ordering = ['-published']
 
 class Comment(models.Model):
     video = models.ForeignKey(Video, on_delete=models.CASCADE)

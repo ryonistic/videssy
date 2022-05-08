@@ -1,6 +1,7 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
-from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.views.generic.list import ListView
 from hitcount.views import HitCountDetailView
@@ -29,9 +30,10 @@ class VideoPlayerView(HitCountDetailView):
         context.update({
         'popular_videos': Video.objects.order_by('-hit_count_generic__hits')[:3],
         })
+        context['comments_num'] = len(Comment.objects.filter(video__slug=self.kwargs['slug']))
         return context
 
-class CreateVideoView(SuccessMessageMixin, CreateView):
+class CreateVideoView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'create_video.html'
     form_class = CreateVideoForm
     success_message = 'Video Uploaded.'
@@ -44,6 +46,7 @@ class CreateVideoView(SuccessMessageMixin, CreateView):
         messages.success(self.request, 'Video Uploaded successfully.')
         return redirect('home')
 
+@login_required
 def like_video(request, video_slug):
     if request.user.is_authenticated:
         video = Video.objects.get(slug=video_slug)
@@ -59,3 +62,22 @@ def like_video(request, video_slug):
     else:
         messages.success(request, 'You need to be logged in to do that.')
         return redirect('video_player', video_slug)
+
+@login_required
+def comments(request, video_slug):
+    if request.user.is_authenticated and (request.method == "POST"):
+        form = CreateCommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.video = Video.objects.get(slug=video_slug)
+            comment.publisher = request.user
+            comment.save()
+            messages.success(request, 'Comment posted successfully')
+            return redirect('comments', video_slug)
+        else:
+            messages.success(request, 'Error while making comment')
+            return redirect('video_player', video_slug)
+    else:
+        form = CreateCommentForm
+        comments = Comment.objects.filter(video__slug=video_slug).order_by('-published')
+        return render(request, 'comments.html', {'form':form, 'comments':comments})

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load hitcount_tags %}
+{%load static%}
+{% block title %}
+Comment
+{% endblock title %}
+{% block content %}
+<div class="p-2 m-2 grid justify-center">
+      <form method="POST" class="flex flex-wrap">
+       {% csrf_token %}
+       {{form.as_p}}
+       <button class="p-2 m-2 font-bold bg-gray-700 text-white hover:bg-gray-900 rounded " type="submit"">Post</button>
+     </form>
+
+     {% if comments %}
+     {% for comment in comments %}
+     <div class="grid p-2 m-2 bg-gray-100">
+     <h2 class="p-1 m-1 text-gray-800">{{comment.content}}</h2>
+     <p class="p-1 m-1 font-semibold text-gray-800">{{comment.publisher}}</p>
+     <p class="p-1 m-1 text-gray-800">{{comment.published}}</p>
+     </div>
+     {% endfor %}
+     {% endif %}
+
+</div>
+ {% endblock content %}
