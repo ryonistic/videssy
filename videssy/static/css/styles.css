@@ -534,6 +534,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   min-height: 100%;
 }
 
+.w-96 {
+  width: 24rem;
+}
+
 .max-w-xs {
   max-width: 20rem;
 }
@@ -560,10 +564,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .justify-between {
   justify-content: space-between;
-}
-
-.justify-evenly {
-  justify-content: space-evenly;
 }
 
 .gap-4 {
