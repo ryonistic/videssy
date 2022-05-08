@@ -10,3 +10,4 @@ from .models import User
 @admin.register(User)
 class UserAdmin(OldUserAdmin):
     list_display = ('username', 'email')
+    fieldsets = OldUserAdmin.fieldsets + (('Extras', {'fields': ('liked_videos',)}),)

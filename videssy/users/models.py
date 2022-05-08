@@ -7,6 +7,8 @@ from django.urls import reverse
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+from vlog.models import Video
+
 
 class CaseInsensitiveFieldMixin:
     """
@@ -39,6 +41,7 @@ class User(AbstractUser):
     username = CICharField(unique=True, max_length=20)
     email = CIEmailField(unique=True,max_length=150)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    liked_videos = models.ManyToManyField(Video)
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
 
