@@ -1,18 +1,9 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title></title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
-  </head>
-  <body>
-    {%if messages%}
-      {%for message in messages%}
-      <p class="text-white bg-blue-400">{{ message }}</p>
-      {%endfor%}
-      {%endif%}
+{% block title %}
+Login
+{% endblock title %}
+{% block content %}
     <div class="grid place-items-center h-screen p-2 m-2 rounded border bg-gray-100 text-gray-800 font-bold">
   <form method="POST">
     {% csrf_token %}
@@ -26,5 +17,4 @@
    <button class="p-2 m-2 font-bold bg-gray-700 text-white hover:bg-gray-900 rounded " type="submit">Log In</button>
  </form> 
     </div>
-  </body>
-</html>
+{% endblock content %}
