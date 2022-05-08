@@ -16,6 +16,8 @@ class Video(models.Model):
     hit_count_generic = GenericRelation(HitCount, object_id_field='object_pk', related_query_name='hit_count_generic_relation')
     thumbnail = models.ImageField(upload_to='thumbnails/')
     footage = models.FileField(upload_to='videos/')
+    likes = models.PositiveBigIntegerField(default=0)
+    dislikes = models.PositiveBigIntegerField(default=0)
 
     def __str__(self):
         return str(self.title)
@@ -29,3 +31,12 @@ class Video(models.Model):
             output_size = (700, 700)
             thumbnail.thumbnail(output_size)
             thumbnail.save(self.thumbnail.path)
+
+class Comment(models.Model):
+    video = models.ForeignKey(Video, on_delete=models.CASCADE)
+    content = models.CharField(max_length=300)
+    published = models.DateTimeField(auto_now_add=True)
+    publisher = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.content)
