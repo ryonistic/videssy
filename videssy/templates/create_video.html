@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Video Upload
+{% endblock title %}
+{% block content %}
+    <div class="grid place-items-center h-screen p-2 m-2 rounded border bg-gray-100 text-gray-800 font-bold">
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+   <h1 class="font-bold text-3xl text-center p-2 m-2">Create Video</h1>
+   <div class="grid grid-cols-2 gap-4">
+        {{form.media}}
+        {{form.as_p}}
+    <button class="p-2 bg-gray-700 hover:bg-gray-900 col-span-2 font-bold rounded text-white" type="submit">Post</button>
+   </div>
+ </form> 
+    </div>
+{% endblock content %}
