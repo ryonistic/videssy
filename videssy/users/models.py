@@ -41,7 +41,7 @@ class User(AbstractUser):
     username = CICharField(unique=True, max_length=20)
     email = CIEmailField(unique=True,max_length=150)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    liked_videos = models.ManyToManyField(Video)
+    liked_videos = models.ManyToManyField(Video, blank=True)
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
 

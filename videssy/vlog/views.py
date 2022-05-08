@@ -44,3 +44,18 @@ class CreateVideoView(SuccessMessageMixin, CreateView):
         messages.success(self.request, 'Video Uploaded successfully.')
         return redirect('home')
 
+def like_video(request, video_slug):
+    if request.user.is_authenticated:
+        video = Video.objects.get(slug=video_slug)
+        if video in request.user.liked_videos.all():
+            request.user.liked_videos.remove(*[video])
+            video.likes -= 1
+            video.save()
+        else:
+            request.user.liked_videos.add(*[video])
+            video.likes += 1
+            video.save()
+        return redirect('video_player', video_slug)
+    else:
+        messages.success(request, 'You need to be logged in to do that.')
+        return redirect('video_player', video_slug)

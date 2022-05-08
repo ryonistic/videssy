@@ -17,7 +17,6 @@ class Video(models.Model):
     thumbnail = models.ImageField(upload_to='thumbnails/')
     footage = models.FileField(upload_to='videos/')
     likes = models.PositiveBigIntegerField(default=0)
-    dislikes = models.PositiveBigIntegerField(default=0)
 
     def __str__(self):
         return str(self.title)

@@ -20,8 +20,7 @@ Video Player
      <p class="px-1 mx-1 col-span-2 text-gray-600"><span class="font-semibold">Description:</span> {{video.description}}</p>
       </div>
      <div class="flex">
-        <p class="px-1 mx-1 text-gray-600">{{video.likes}} likes</p>
-        <p class="px-1 mx-1 text-gray-600">{{video.dislikes}} dislikes</p>
+       <button class="px-1 mx-1 bg-gray-200 border text-gray-600"><a href="{% url 'like_video' video.slug %}">{{video.likes}} likes</a></button>
      </div>
   </div>
 
