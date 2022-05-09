@@ -5,8 +5,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView
 from vlog.models import Video
+from .models import UserFollowing
 
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth import authenticate, login as logthemin, logout as logthemout
 from .forms import UserRegisterForm
@@ -50,6 +51,10 @@ class UserDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['videos'] = Video.objects.filter(uploader=User.objects.get(username=self.kwargs['username']))
+        try:
+            context['following'] = UserFollowing.objects.get(user__username=self.kwargs['username'], following_user=self.request.user)
+        except Exception:
+            context['following'] = None
         return context
 
 user_detail_view = UserDetailView.as_view()
@@ -59,3 +64,16 @@ class RegisterView(SuccessMessageMixin, CreateView):
     success_url = reverse_lazy('login')
     success_message = 'Account created successfully, you may now log in!'
     template_name = 'register.html'
+
+def subscribe(request, username):
+    try:
+        connection = UserFollowing.objects.get(user=get_object_or_404(User, username=username), following_user=request.user)
+    except Exception:
+        connection = None
+
+    if connection is None:
+        UserFollowing.objects.create(user=get_object_or_404(User, username=username), following_user=request.user)
+    else:
+        connection.delete()
+    return redirect('detail', username)
+

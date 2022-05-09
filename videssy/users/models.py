@@ -6,6 +6,7 @@ import uuid
 from django.urls import reverse
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.conf import settings
 
 from vlog.models import Video
 
@@ -53,3 +54,13 @@ class User(AbstractUser):
 
         """
         return reverse("users:detail", kwargs={"username": self.username})
+
+class UserFollowing(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="following", on_delete=models.CASCADE)
+    following_user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="followers", on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ("user", "following_user")
+    def __str__(self):
+        return f"{self.following_user} follows {self.user}"

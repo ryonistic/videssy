@@ -4,8 +4,9 @@ in the admin panel. If you wish to add more fields to the user model, you may
 then add those here in the fieldset as well."""
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as OldUserAdmin
-from .models import User
+from .models import User, UserFollowing
 
+admin.site.register(UserFollowing)
 
 @admin.register(User)
 class UserAdmin(OldUserAdmin):

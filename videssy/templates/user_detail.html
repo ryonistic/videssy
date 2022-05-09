@@ -11,6 +11,13 @@ Home
   <p>Full name: &nbsp;</p>
   <p>{{user.first_name}} &nbsp;</p>
   <p>{{user.last_name}}</p>
+  <div class="p-2 m-2">
+  {% if following %}
+<a class="p-2 m-2 border rounded bg-gray-500" href="{% url 'subscribe' user.username %}">Subscribed</a>
+  {% else %}
+<a class="p-2 m-2 border rounded bg-gray-200" href="{% url 'subscribe' user.username %}">Subscribe</a>
+  {% endif %}
+  </div>
 </div>
 </div>
 <div>
