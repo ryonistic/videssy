@@ -6,10 +6,12 @@
           </ul>
           <a href="{% url 'home' %}"><img src="{% static 'images/media.svg'%}" class="h-14 p-2" alt="logo" /></a>
   </div>
-  <div class="flex justify-end">
-  <input type="text" name="search" placeholder="Search" class="rounded p-2 my-1"/>
+  <form class="flex justify-end" action="http://127.0.0.1:8000/search" onsubmit="location.href = document.getElementById('f1').value + 
+    document.getElementById('searched').value; return false"> 
+  <input type="text" id="searched" placeholder="Search" class="rounded p-2 my-1"/>
   <input type="image" class="max-h-14 p-2" id="submit-btn" src="{% static 'images/search.svg'%}" alt="Search"/>
-  </div>
+  <input type=hidden id=f1 name=f1 value="http://127.0.0.1:8000/search/">
+  </form>
  </nav> 
  <div class="hidden bg-gray-100 p-2 font-bold" id="hiddenEl">
       <ul>

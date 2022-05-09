@@ -83,3 +83,9 @@ def comments(request, video_slug):
         form = CreateCommentForm
         comments = Comment.objects.filter(video__slug=video_slug).order_by('-published')
         return render(request, 'comments.html', {'form':form, 'comments':comments})
+
+def search(request, search_str):
+	videos = Video.objects.filter(title__contains=search_str)
+	context = {'searched':search_str, 'videos':videos}
+	return render(request, 'search_results.html', context)
+
