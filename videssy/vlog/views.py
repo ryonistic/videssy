@@ -31,6 +31,8 @@ class VideoPlayerView(HitCountDetailView):
         'popular_videos': Video.objects.order_by('-hit_count_generic__hits')[:3],
         })
         context['comments_num'] = len(Comment.objects.filter(video__slug=self.kwargs['slug']))
+        this_video = Video.objects.get(slug=self.kwargs['slug'])
+        context['suggested_videos'] = Video.objects.filter(tag=this_video.tag)
         return context
 
 class CreateVideoView(LoginRequiredMixin, SuccessMessageMixin, CreateView):

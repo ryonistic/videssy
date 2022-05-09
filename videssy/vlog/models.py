@@ -8,6 +8,13 @@ from django.contrib.contenttypes.fields import GenericRelation
 
 
 class Video(models.Model):
+    TAG_CHOICES = (
+            ('1','asmr'),
+            ('2','gaming'),
+            ('3','vlog'),
+            ('4','music'),
+            ('5','animation'),
+            )
     title = models.CharField(max_length=200)
     description = models.TextField(max_length=1500)
     published = models.DateField(auto_now_add=True)
@@ -17,6 +24,7 @@ class Video(models.Model):
     thumbnail = models.ImageField(upload_to='thumbnails/')
     footage = models.FileField(upload_to='videos/')
     likes = models.PositiveBigIntegerField(default=0)
+    tag = models.CharField(choices=TAG_CHOICES,max_length=100, null=True)
 
     def __str__(self):
         return str(self.title)

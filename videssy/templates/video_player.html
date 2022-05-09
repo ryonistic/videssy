@@ -22,30 +22,20 @@ Video Player
      <div class="flex">
        <button class="px-1 mx-1 bg-gray-200 border text-gray-600"><a href="{% url 'like_video' video.slug %}">{{video.likes}} likes</a></button>
      </div>
-     <h3 class="font-bold text-xl text-gray-800"><a href="{% url 'comments' video.slug %}">{{comments_num}} Comments</h3>
+     <h3 class="font-bold text-xl text-gray-800"><a href="{% url 'comments' video.slug %}">{{comments_num}} Comments</a></h3>
   </div>
 
 <div class="bg-gray-200 m-2 rounded">
 <h3 class="font-bold col-span-2 text-3xl p-2 m-2 text-gray-700 text-center">Suggested videos</h3>  
 <div class="p-2 m-2">
 
+{% for suggested_video in suggested_videos %}
 <div class="p-2 m-2 bg-gray-100 rounded ">
-<img src="thumbnail.jpg" class="col-span-2  max-h-36 p-2 m-2 " alt="">
-      <h4 class="font-bold text-xl text-gray-800">Video Title</h4>
-      <h5 class="font-bold text-l text-gray-600">Nick Malice</h5>
+  <a href="{% url 'video_player' suggested_video.slug %}"><img src="{{suggested_video.thumbnail.url}}" class="col-span-2  max-h-36 p-2 m-2 " alt=""></a>
+<h4 class="font-bold text-xl text-gray-800">{{suggested_video.title}}</h4>
+<h5 class="font-bold text-l text-gray-600">{{suggested_video.uploader}}</h5>
 </div>
-
-<div class="p-2 m-2 bg-gray-100 rounded ">
-<img src="thumbnail.jpg" class="col-span-2  max-h-36 p-2 m-2 " alt="">
-      <h4 class="font-bold text-xl text-gray-800">Video Title</h4>
-      <h5 class="font-bold text-l text-gray-600">Nick Malice</h5>
-</div>
-
-<div class="p-2 m-2 bg-gray-100 rounded ">
-<img src="thumbnail.jpg" class="col-span-2  max-h-36 p-2 m-2 " alt="">
-      <h4 class="font-bold text-xl text-gray-800">Video Title</h4>
-      <h5 class="font-bold text-l text-gray-600">Nick Malice</h5>
-</div>
+{% endfor %}
 
 </div>
 </div>

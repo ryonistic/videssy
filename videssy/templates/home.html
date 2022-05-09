@@ -13,8 +13,7 @@ Home
       <h4 class="font-bold text-4xl text-gray-800"><a href="{% url 'video_player' video.slug %}">{{video.title}}</a></h4>
       <h5 class="font-bold text-xl text-gray-600">{{video.uploader}}</h5>
       <div class="text-gray-800 font-semibold flex flex-wrap">
-      <p class="bg-gray-100 text-gray-800 font-semibold rounded p-1 m-1">#lorem</p>
-      <p class="bg-gray-100 text-gray-800 font-semibold rounded p-1 m-1">#ipsum</p>
+        <p class="bg-gray-100 text-gray-800 font-semibold rounded p-1 m-1">#{{video.get_tag_display}}</p>
       </div>
       <p class="text-gray-600">{% get_hit_count for video %} views</p>
     </div>
