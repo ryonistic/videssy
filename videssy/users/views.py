@@ -1,6 +1,7 @@
 """Authentication views are listed here, any changes you make will affect
 the authentication."""
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView
@@ -53,7 +54,7 @@ class UserDetailView(LoginRequiredMixin, DetailView):
         context['videos'] = Video.objects.filter(uploader=User.objects.get(username=self.kwargs['username']))
         try:
             context['following'] = UserFollowing.objects.get(user__username=self.kwargs['username'], following_user=self.request.user)
-        except Exception:
+        except ObjectDoesNotExist:
             context['following'] = None
         return context
 
@@ -68,7 +69,7 @@ class RegisterView(SuccessMessageMixin, CreateView):
 def subscribe(request, username):
     try:
         connection = UserFollowing.objects.get(user=get_object_or_404(User, username=username), following_user=request.user)
-    except Exception:
+    except ObjectDoesNotExist:
         connection = None
 
     if connection is None:
@@ -76,4 +77,3 @@ def subscribe(request, username):
     else:
         connection.delete()
     return redirect('detail', username)
-

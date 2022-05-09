@@ -7,11 +7,11 @@ Home
 {% block content %}
  <div class="flex flex-wrap justify-start p-2 m-2">
 {% for video in videos %}
-  <div class="max-h-full p-2 m-2 rounded border bg-gray-200">
+  <div class="max-h-full p-2 m-2 rounded border bg-gray-200" style="width:500px;">
     <a href="{% url 'video_player' video.slug %}"><img src="{{video.thumbnail.url}}" class="p-2 max-w-xs" alt="Video Thumnail"/></a>
     <div class="p-1 m-1">
       <h4 class="font-bold text-4xl text-gray-800"><a href="{% url 'video_player' video.slug %}">{{video.title}}</a></h4>
-      <h5 class="font-bold text-xl text-gray-600">{{video.uploader}}</h5>
+      <h5 class="font-bold text-xl text-gray-600"><a href="{% url 'detail' video.uploader.username %}">{{video.uploader}}</a></h5>
       <div class="text-gray-800 font-semibold flex flex-wrap">
         <p class="bg-gray-100 text-gray-800 font-semibold rounded p-1 m-1">#{{video.get_tag_display}}</p>
       </div>
