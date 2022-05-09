@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView
+from vlog.models import Video
 
 from django.shortcuts import render, redirect
 from django.contrib.messages.views import SuccessMessageMixin
@@ -41,11 +42,15 @@ def logout(request):
         return redirect('login')
 
 class UserDetailView(LoginRequiredMixin, DetailView):
-
     model = User
+    template_name = 'user_detail.html'
     slug_field = "username"
     slug_url_kwarg = "username"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['videos'] = Video.objects.filter(uploader=User.objects.get(username=self.kwargs['username']))
+        return context
 
 user_detail_view = UserDetailView.as_view()
 

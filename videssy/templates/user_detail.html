@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{%load static%}
+{% load hitcount_tags %}
+{% block title %}
+Home
+{% endblock title %}
+{% block content %}
+<div class="p-2 m-2 grid ">
+  <h3>Username: <span class="font-bold text-xl">{{user.username}}</span></h3>
+<div class="flex">
+  <p>Full name: &nbsp;</p>
+  <p>{{user.first_name}} &nbsp;</p>
+  <p>{{user.last_name}}</p>
+</div>
+</div>
+<div>
+  {% if videos %}
+  <h3 class="font-bold text-xl p-2 m-2">Videos</h3>
+  {% for video in videos %}
+  <div class="max-h-full p-2 m-2 rounded border bg-gray-200">
+    <a href="{% url 'video_player' video.slug %}"><img src="{{video.thumbnail.url}}" class="p-2 max-w-xs" alt="Video Thumnail"/></a>
+    <div class="p-1 m-1">
+      <h4 class="font-bold text-4xl text-gray-800"><a href="{% url 'video_player' video.slug %}">{{video.title}}</a></h4>
+      <h5 class="font-bold text-xl text-gray-600">{{video.uploader}}</h5>
+      <div class="text-gray-800 font-semibold flex flex-wrap">
+        <p class="bg-gray-100 text-gray-800 font-semibold rounded p-1 m-1">#{{video.get_tag_display}}</p>
+      </div>
+      <p class="text-gray-600">{% get_hit_count for video %} views</p>
+    </div>
+  </div> 
+  {% endfor %}
+  {% endif %}
+</div>
+{% endblock content %}
+
