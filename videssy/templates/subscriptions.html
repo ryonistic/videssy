@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{%load static%}
+{% load hitcount_tags %}
+{% block title %}
+Subscriptions
+{% endblock title %}
+{% block content %}
+  <h4 class="font-bold text-4xl p-2 m-2 text-gray-800">Your Subscribed Channels</h4>
+ <div class="flex flex-wrap p-2 m-2">
+   {% if subscriptions %}
+{% for channel in subscriptions %}
+  <div class="max-h-full p-2 m-2 rounded border bg-gray-200" style="width:500px;">
+    <div class="p-1 m-1">
+      <h4 class="font-bold text-4xl text-gray-800"><a href="{% url 'detail' channel.user.username %}">{{channel.user.first_name}} {{channel.user.last_name}}</a></h4>
+      <h5 class="font-bold text-xl text-gray-600"><a href="{% url 'detail' channel.user.username %}">{{channel.user.username}}</a></h5>
+    </div>
+  </div> 
+{% endfor %}
+{% endif %}
+ </div>
+
+{% endblock content %}

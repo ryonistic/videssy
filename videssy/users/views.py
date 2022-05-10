@@ -29,6 +29,9 @@ def login(request):
                 logthemin(request, user)
                 messages.success(request, 'Logged in')
                 return redirect('home')
+            else:
+                messages.success(request, 'Authentication error')
+                return redirect('login')
         else:
             return render(request, 'login.html', {})
     else:

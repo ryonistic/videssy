@@ -16,11 +16,11 @@
  <div class="hidden bg-gray-100 p-2 font-bold" id="hiddenEl">
       <ul>
         <li><a href="{% url 'home' %}">Home</a></li>  
-        <li><a href="#">Explore</a></li>  
-      <li><a href="#">Subscriptions</a></li>  
-      <li><a href="#">Playlists</a></li>  
       {% if user.is_authenticated %}
+      <li><a href="{% url 'subscriptions' %}">Subscriptions</a></li>  
+      <li><a href="#">Playlists</a></li>  
       <li><a href="{% url 'create_video' %}">Create</a></li>  
+      <li><a href="{% url 'liked_videos' %}">Liked Videos</a></li>  
       <li><a href="{% url 'logout' %}">Logout</a></li>  
       {% else %}
       <li><a href="{% url 'login' %}">Login</a></li>  

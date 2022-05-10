@@ -9,6 +9,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.edit import CreateView
 from .models import Video, Comment
 from .forms import CreateVideoForm, CreateCommentForm
+from users.models import UserFollowing
 
 
 class HomeView(ListView):
@@ -16,6 +17,16 @@ class HomeView(ListView):
     context_object_name = 'videos'
     template_name = 'home.html'
 
+
+@login_required
+def liked_videos(request):
+    return render(request, 'liked_videos.html', {})
+
+
+@login_required
+def subscriptions(request):
+    subscriptions =  UserFollowing.objects.filter(following_user__username=request.user.username)
+    return render(request, 'subscriptions.html', {'subscriptions':subscriptions})
 
 class VideoPlayerView(HitCountDetailView):
     model = Video

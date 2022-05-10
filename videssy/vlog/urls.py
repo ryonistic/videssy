@@ -9,4 +9,6 @@ urlpatterns = [
         path('like_video/<slug:video_slug>/', views.like_video, name='like_video'),
         path('comments/<slug:video_slug>/', views.comments, name='comments'),
         path('search/<str:search_str>', views.search, name='search'),
+        path('liked_videos/', views.liked_videos, name='liked_videos'),
+        path('subscriptions/', views.subscriptions, name='subscriptions'),
         ]

@@ -2,14 +2,14 @@
 {%load static%}
 {% load hitcount_tags %}
 {% block title %}
-Home
+Liked Videos
 {% endblock title %}
 {% block content %}
-  <h4 class="font-bold text-4xl p-2 m-2 text-gray-800">Recommended Videos</h4>
+  <h4 class="p-2 m-2 font-bold text-4xl text-gray-800"><a href="{% url 'liked_videos' %}">Liked Videos</a></h4>
  <div class="flex flex-wrap p-2 m-2">
-{% for video in videos %}
+{% for video in user.liked_videos.all %}
   <div class="max-h-full p-2 m-2 rounded border bg-gray-200" style="width:500px;">
-    <a href="{% url 'video_player' video.slug %}"><img src="{{video.thumbnail.url}}" class="p-2 object-fit" style="height:300px;" alt="Video Thumbnail"/></a>
+    <a href="{% url 'video_player' video.slug %}"><img src="{{video.thumbnail.url}}" class="p-2 object-cover" alt="Video Thumbnail"/></a>
     <div class="p-1 m-1">
       <h4 class="font-bold text-4xl text-gray-800"><a href="{% url 'video_player' video.slug %}">{{video.title}}</a></h4>
       <h5 class="font-bold text-xl text-gray-600"><a href="{% url 'detail' video.uploader.username %}">{{video.uploader}}</a></h5>
