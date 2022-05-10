@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
@@ -96,7 +97,7 @@ def comments(request, video_slug):
         return render(request, 'comments.html', {'form':form, 'comments':comments})
 
 def search(request, search_str):
-	videos = Video.objects.filter(title__contains=search_str)
+	videos = Video.objects.filter(Q(title__icontains=search_str) | Q(uploader__first_name__icontains=search_str) | Q(uploader__last_name__icontains=search_str))
 	context = {'searched':search_str, 'videos':videos}
 	return render(request, 'search_results.html', context)
 
