@@ -16,6 +16,20 @@ License: MIT
 
 For convenience, you can keep your normal user logged in on Chrome and your superuser logged in on Firefox (or similar), so that you can see how the site behaves for both kinds of users.
 
+### Starting Development server
+
+-   To install dependencies, use either of the following two commands(make sure pipenv is installed):
+
+        $ pipenv sync
+        OR 
+        $ pipenv install -r requirements.txt
+
+-   To start a **development server**, use this command:
+
+        $ python manage.py runserver
+
+You may view the page on http://127.0.0.8000
+
 ## Deployment
 
 This project is not intended for deployment and only serves as part of my portfolio. If you do intend to use it for deployment, do it at your own discretion.
