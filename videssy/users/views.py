@@ -28,7 +28,10 @@ def login(request):
             if user is not None:
                 logthemin(request, user)
                 messages.success(request, 'Logged in')
-                return redirect('home')
+                try:
+                    return redirect(request.GET.get('next'))
+                except Exception:
+                    return redirect('home')
             else:
                 messages.success(request, 'Authentication error')
                 return redirect('login')
