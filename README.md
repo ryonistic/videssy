@@ -28,7 +28,7 @@ For convenience, you can keep your normal user logged in on Chrome and your supe
 
         $ python manage.py runserver
 
-You may view the page on http://127.0.0.8000
+You may view the page on http://127.0.0.1.8000
 
 ## Deployment
 
