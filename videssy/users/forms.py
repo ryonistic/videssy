@@ -9,6 +9,10 @@ from .models import User
 
 
 class UserRegisterForm(UserCreationForm):
+    """
+    Following fields are made compulsory by rewriting them 
+    to override them in the UserCreationForm class.
+    """
     email = forms.EmailField(label='', widget=forms.EmailInput(
         attrs={'class': 'p-2 m-2', 'placeholder': 'Email Address'}))
     first_name = forms.CharField(label='', max_length=50, widget=forms.TextInput(
@@ -17,10 +21,16 @@ class UserRegisterForm(UserCreationForm):
         attrs={'class': 'p-2 m-2', 'placeholder': 'Last Name'}))
 
     class Meta:
+        """
+        Meta class makes sure the model on which the form is based 
+        is overriden and the fields are decided. 
+        """
         model = User
         fields = ('username', 'email', 'first_name',
                   'last_name', 'password1', 'password2')
-
+    
+    # This function extends the default __init__ function to alter
+    # widgets and attributes on fields present in parent class(UserCreationForm)
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

@@ -56,6 +56,10 @@ class User(AbstractUser):
         return reverse("users:detail", kwargs={"username": self.username})
 
 class UserFollowing(models.Model):
+    """
+    All subscriptions are saved in their own table. unique_together property is used to make 
+    sure that no user can follow someone twice. 
+    """
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="following", on_delete=models.CASCADE)
     following_user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="followers", on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)

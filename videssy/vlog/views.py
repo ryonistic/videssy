@@ -101,3 +101,19 @@ def search(request, search_str):
 	context = {'searched':search_str, 'videos':videos}
 	return render(request, 'search_results.html', context)
 
+@login_required
+def delete_video(request, video_slug):
+    if request.user.is_authenticated:
+        video = Video.objects.get(slug=video_slug)
+        if video.uploader == request.user:
+            video.delete()
+            messages.success(request, 'Deleted successfully')
+            return redirect('detail', video.uploader.username)
+        else:
+            messages.success(request, 'You are not the owner of the video.')
+            return redirect('video_player', video_slug)
+    else:
+        messages.success(request, 'You need to be logged in to do that.')
+        return redirect('detail', video.uploader.username)
+
+

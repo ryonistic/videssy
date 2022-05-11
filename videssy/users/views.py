@@ -18,7 +18,7 @@ from django.urls import reverse_lazy
 
 User = get_user_model()
 
-
+# custom login function for authenticating users and redirecting them to their next url
 def login(request):
     if not request.user.is_authenticated:
         if request.method == "POST":
@@ -40,6 +40,7 @@ def login(request):
     else:
         return redirect('home')
 
+# Custom logout function to logout users 
 def logout(request):
     if request.user.is_authenticated:
         logthemout(request)
@@ -50,11 +51,17 @@ def logout(request):
         return redirect('login')
 
 class UserDetailView(LoginRequiredMixin, DetailView):
+    """
+    if user is logged in then this view will show them a 
+    detailed view of a particular user, as decided by the slug 
+    received with the url.
+    """
     model = User
     template_name = 'user_detail.html'
     slug_field = "username"
     slug_url_kwarg = "username"
 
+    # context['obj_name'] sends a context object to the template called obj_name. We are deciding what it will contain here.
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['videos'] = Video.objects.filter(uploader=User.objects.get(username=self.kwargs['username']))
@@ -67,11 +74,16 @@ class UserDetailView(LoginRequiredMixin, DetailView):
 user_detail_view = UserDetailView.as_view()
 
 class RegisterView(SuccessMessageMixin, CreateView):
+    """
+    Handling User registration logic. Simple as that. 
+    Most things are default.
+    """
     form_class = UserRegisterForm
     success_url = reverse_lazy('login')
     success_message = 'Account created successfully, you may now log in!'
     template_name = 'register.html'
 
+# makes connection if you are not already subscribed, else deletes the connection.
 def subscribe(request, username):
     try:
         connection = UserFollowing.objects.get(user=get_object_or_404(User, username=username), following_user=request.user)

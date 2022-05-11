@@ -1,3 +1,8 @@
+"""
+These url paths handle the routing logic for authentication as well 
+as channel and subscription related pages. Any and all views mentioned 
+here can be found in the views.py file in the same directory.
+"""
 from django.urls import path
 from . import views
 

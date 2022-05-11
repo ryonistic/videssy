@@ -1,3 +1,8 @@
+"""
+slugify is used to add unique slug links from video titles, hence videos
+shall have unique titles. 
+save functions are overriden to make sure images are not oversized.
+"""
 from django.db import models
 from django.utils.text import slugify
 from django.conf import settings
@@ -8,6 +13,12 @@ from django.contrib.contenttypes.fields import GenericRelation
 
 
 class Video(models.Model):
+    """
+    title is unique and publishing date is auto added. 
+    slugs are created upon save and uploader is decided in views.
+    likes may be altered via views too. Tags are chosen from the following
+    choices.
+    """
     TAG_CHOICES = (
             ('1','asmr'),
             ('2','gaming'),
@@ -15,7 +26,7 @@ class Video(models.Model):
             ('4','music'),
             ('5','animation'),
             )
-    title = models.CharField(max_length=200)
+    title = models.CharField(unique=True,max_length=200)
     description = models.TextField(max_length=1500)
     published = models.DateField(auto_now_add=True)
     slug = models.SlugField(unique=True, max_length=200)
@@ -42,6 +53,10 @@ class Video(models.Model):
         ordering = ['-published']
 
 class Comment(models.Model):
+    """
+    Every comment is connected to a video and has content filled 
+    by the commenter.
+    """
     video = models.ForeignKey(Video, on_delete=models.CASCADE)
     content = models.CharField(max_length=300)
     published = models.DateTimeField(auto_now_add=True)

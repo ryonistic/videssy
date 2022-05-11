@@ -20,7 +20,10 @@ Video Player
      <p class="px-1 mx-1 col-span-2 text-gray-600"><span class="font-semibold">Description:</span> {{video.description}}</p>
       </div>
      <div class="flex">
-       <button class="px-1 mx-1 bg-gray-200 border text-gray-600"><a href="{% url 'like_video' video.slug %}">{{video.likes}} likes</a></button>
+       <button class="p-2 m-2 rounded bg-gray-200 border text-gray-600"><a href="{% url 'like_video' video.slug %}">{{video.likes}} likes</a></button>
+       {% if user == video.uploader %}
+       <button class="p-2 m-2 rounded bg-red-600 border text-white font-bold"><a href="{% url 'delete_video' video.slug %}">Delete</a></button>
+       {% endif %}
      </div>
      <h3 class="font-bold text-xl text-gray-800"><a href="{% url 'comments' video.slug %}">{{comments_num}} Comments</a></h3>
   </div>
