@@ -4,6 +4,9 @@ A website where you can upload and watch videos, subscribe to channels and comme
 
 License: MIT
 
+## Showcase
+<img src="https://github.com/ryonistic/brimstone/blob/17058e9c9f28a37853da20975c3401c4a2229c82/showcase/home.png" width="600" height=auto alt="Home Page" />
+
 ## Basic Commands
 
 ### Setting Up Your Users
