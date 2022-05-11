@@ -1,3 +1,7 @@
+"""
+All views revolve around viewing, liking, deleting, subscribing or 
+adding videos/channels
+"""
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.shortcuts import redirect, render
@@ -14,6 +18,9 @@ from users.models import UserFollowing
 
 
 class HomeView(ListView):
+    """
+    Home page shows a list of video objects, nothing else.
+    """
     model = Video
     context_object_name = 'videos'
     template_name = 'home.html'
@@ -24,12 +31,18 @@ def liked_videos(request):
     return render(request, 'liked_videos.html', {})
 
 
+# shows all subscriptions of the request.user
 @login_required
 def subscriptions(request):
     subscriptions =  UserFollowing.objects.filter(following_user__username=request.user.username)
     return render(request, 'subscriptions.html', {'subscriptions':subscriptions})
 
 class VideoPlayerView(HitCountDetailView):
+    """
+    shows one video and all its details. Shows suggested videos 
+    which are basically videos that share the tag with currently 
+    viewed video
+    """
     model = Video
     template_name = 'video_player.html'
     context_object_name = 'video'
@@ -48,6 +61,9 @@ class VideoPlayerView(HitCountDetailView):
         return context
 
 class CreateVideoView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    """
+    Allows users to create video objects. Uploader is set to the request.user
+    """
     template_name = 'create_video.html'
     form_class = CreateVideoForm
     success_message = 'Video Uploaded.'
@@ -60,6 +76,7 @@ class CreateVideoView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         messages.success(self.request, 'Video Uploaded successfully.')
         return redirect('home')
 
+# if a video is already liked by request.user, the like is removed, otherwise it is added
 @login_required
 def like_video(request, video_slug):
     if request.user.is_authenticated:
@@ -79,7 +96,7 @@ def like_video(request, video_slug):
 
 @login_required
 def comments(request, video_slug):
-    if request.user.is_authenticated and (request.method == "POST"):
+    if request.method == "POST":
         form = CreateCommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
@@ -96,11 +113,13 @@ def comments(request, video_slug):
         comments = Comment.objects.filter(video__slug=video_slug).order_by('-published')
         return render(request, 'comments.html', {'form':form, 'comments':comments})
 
+# this search functionality makes use of icontains, which queries the DBMS for case-insensitive matches
 def search(request, search_str):
 	videos = Video.objects.filter(Q(title__icontains=search_str) | Q(uploader__first_name__icontains=search_str) | Q(uploader__last_name__icontains=search_str))
 	context = {'searched':search_str, 'videos':videos}
 	return render(request, 'search_results.html', context)
 
+# deletion only happens if video's uploader is the same as the request.user
 @login_required
 def delete_video(request, video_slug):
     if request.user.is_authenticated:
@@ -115,5 +134,3 @@ def delete_video(request, video_slug):
     else:
         messages.success(request, 'You need to be logged in to do that.')
         return redirect('detail', video.uploader.username)
-
-
