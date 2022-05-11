@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     # Local Apps 
     'users.apps.UsersConfig',
     'vlog.apps.VlogConfig',
-    'stream.apps.StreamConfig',
     'hitcount',
 ]
 
