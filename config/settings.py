@@ -95,9 +95,9 @@ AUTHENTICATION_BACKENDS = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'videssy',
-        'USER': 'vidadmin',
-        'PASSWORD': 'password321',
+        'NAME': secret_manager('NAME'),
+        'USER': secret_manager('USER'),
+        'PASSWORD': secret_manager('PASSWORD'),
         'HOST': 'localhost',
         'PORT': '',
     }
