@@ -1,4 +1,4 @@
-from django.contrib.auth import get_user_model
+from django.contrib.auth import authenticate, get_user_model, login
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404
 from django.test import TestCase
@@ -16,6 +16,12 @@ class SubscriptionTest(TestCase):
         self.user = User.objects.create_user(
             username='jacob', first_name='Jacob', last_name='Lenner', email='jacob_lenner123@gmail.com', password='top_secret')
         print('successfully created user, now subscribing to channel')
+        user = authenticate(username=self.user.username, password=self.user.password)
+        if user is not None:
+            login(self.request, user)
+            print(f'logged in the user {user}')
+        else:
+            return 'Error logging in'
 
     def test_details(self):
         # Create an instance of a GET request.
